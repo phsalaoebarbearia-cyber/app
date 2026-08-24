@@ -8,6 +8,11 @@ const getInitials = (name) => {
   return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const formatDate = (value) => {
   if (!value) return '-';
   const date = new Date(value);
@@ -104,7 +109,9 @@ export default function ClientsList() {
                   <tr key={client.id}>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div className="avatar-circle">{getInitials(client.name)}</div>
+                        <div className="avatar-circle">
+                          {isValidPhoto(client.photo) ? <img src={client.photo} alt="" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} /> : getInitials(client.name)}
+                        </div>
                         <span className="fw-600">{client.name || '-'}</span>
                       </div>
                     </td>
