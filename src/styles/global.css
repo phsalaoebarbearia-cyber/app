@@ -824,6 +824,7 @@ tr:hover td {
 .day-card .day-num {
   font-size: 22px;
   font-weight: 700;
+  color: #e53935;
   margin: 4px 0;
 }
 

@@ -233,7 +233,7 @@ const Appointment = () => {
                   </div>
                 )}
                 <div className="price">R$ {service.price}</div>
-                <div className="duration">{service.duration}</div>
+                <div className="duration">{service.duration ? `${service.duration} min` : ''}</div>
               </div>
             ))}
             {services.length === 0 && <p className="text-gray">Carregando serviços...</p>}
