@@ -61,7 +61,7 @@ const Home = () => {
         <div className="page-section">
           <div className="card" style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <img
-              src="/Logo_ph.png"
+              src="./Logo_ph.png"
               alt="PH Barbearia"
               style={{
                 width: 88,

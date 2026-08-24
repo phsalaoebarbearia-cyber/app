@@ -42,7 +42,7 @@ const Login = () => {
           Voltar ao site
         </Link>
         <div className="auth-logo">
-          <img src="/Logo_ph.png" alt="PH Barbearia" />
+          <img src="./Logo_ph.png" alt="PH Barbearia" />
           <h1>PH Barbearia</h1>
           <p>Salão &amp; Barbearia</p>
         </div>
