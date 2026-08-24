@@ -121,7 +121,7 @@ const Landing = () => {
           <div style={styles.navBrand}>
             <img src="./Logo_ph.png" alt="PH" style={styles.navLogo} />
             <span style={styles.navTitle}>
-              <span style={styles.logoPHInline}>PH</span>{' '}
+              <span style={styles.navPH}>PH</span>{' '}
               <span style={styles.navTitleWhite}>Salão & Barbearia</span>
             </span>
           </div>
@@ -542,14 +542,25 @@ const styles = {
     objectFit: 'cover',
   },
   navTitle: {
-    display: 'block',
-    fontSize: 22,
-    lineHeight: 1.2,
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: 8,
     whiteSpace: 'nowrap',
+  },
+  navPH: {
+    fontFamily: "'Algerian', Georgia, 'Times New Roman', serif",
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    color: '#d4af37',
+    fontSize: 44,
+    letterSpacing: 2,
+    lineHeight: 1,
   },
   navTitleWhite: {
     fontWeight: 700,
+    fontSize: 22,
     color: '#ffffff',
+    lineHeight: 1,
   },
   navLinks: {
     display: 'flex',
