@@ -4,6 +4,7 @@ import { Scissors, Clock, MapPin, Phone, ChevronRight, ChevronLeft, Star, Naviga
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { loadServices } from '../services/FirestoreService';
+import Login from './Login';
 
 const galleryImages = [
   './Logo_ph.png',
@@ -46,6 +47,7 @@ const Landing = () => {
   const [services, setServices] = useState(DEFAULT_SERVICES);
   const [serviceIndex, setServiceIndex] = useState(0);
   const [serviceFade, setServiceFade] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -130,7 +132,7 @@ const Landing = () => {
             <a href="#sobre" style={styles.navLink}>Sobre</a>
             <a href="#localizacao" style={styles.navLink}>Localização</a>
             <a href="#contato" style={styles.navLink}>Contato</a>
-            <button onClick={() => navigate('/login')} style={styles.navBtn}>
+            <button onClick={() => setShowLogin(true)} style={styles.navBtn}>
               Entrar
             </button>
           </div>
@@ -500,6 +502,7 @@ const Landing = () => {
           <span>© 2024 PH Barbearia. Todos os direitos reservados.</span>
         </div>
       </footer>
+      {showLogin && <Login onClose={() => setShowLogin(false)} />}
     </div>
   );
 };
