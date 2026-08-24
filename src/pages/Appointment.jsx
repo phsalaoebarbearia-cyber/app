@@ -37,6 +37,11 @@ const getInitials = (name) => {
   return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const generateTimeSlots = (start, end) => {
   const slots = [];
   const [sh, sm] = start.split(':').map(Number);
@@ -160,8 +165,17 @@ const Appointment = () => {
         id: Date.now().toString(),
         userId: user.id,
         clientName: user.name,
-        barber: selectedBarber,
-        service: selectedService,
+        barber: {
+          id: selectedBarber.id,
+          name: selectedBarber.name,
+          specialty: selectedBarber.specialty,
+          email: selectedBarber.email,
+        },
+        service: {
+          id: selectedService.id,
+          name: selectedService.name,
+          price: selectedService.price,
+        },
         date: selectedDate.date.toISOString(),
         time: selectedTime,
         status: 'confirmed',
@@ -236,7 +250,7 @@ const Appointment = () => {
                 style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                 onClick={() => setSelectedBarber(barber)}
               >
-                {barber.photo ? (
+                {isValidPhoto(barber.photo) ? (
                   <img
                     className="avatar-circle"
                     src={barber.photo}

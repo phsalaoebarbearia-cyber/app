@@ -25,6 +25,11 @@ const getInitials = (name) => {
   return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const BarberProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -103,7 +108,7 @@ const BarberProfile = () => {
         {barber && (
           <>
             <div className="mb-lg" style={{ textAlign: 'center' }}>
-              {barber.photo ? (
+              {isValidPhoto(barber.photo) ? (
                 <img
                   className="avatar-circle"
                   src={barber.photo}

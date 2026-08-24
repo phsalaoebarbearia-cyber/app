@@ -13,6 +13,11 @@ const getInitials = (name) => {
   return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const Home = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -119,7 +124,7 @@ const Home = () => {
                 className="barber-card-web"
                 onClick={() => navigate(`/barbeiro/${barber.id}`)}
               >
-                {barber.photo ? (
+                {isValidPhoto(barber.photo) ? (
                   <img className="avatar-circle" src={barber.photo} alt={barber.name} />
                 ) : (
                   <div className="avatar-circle">{getInitials(barber.name)}</div>

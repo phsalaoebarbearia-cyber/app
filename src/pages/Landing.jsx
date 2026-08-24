@@ -26,7 +26,7 @@ const aboutGallery1 = [
   './Fotos/Profissional03.png',
   './Fotos/Profissional02.png',
   './Fotos/Corte.jpeg',
-  './Fotos/banner.png',
+  './Fotos/Corte01.png',
 ];
 
 const aboutGallery2 = [

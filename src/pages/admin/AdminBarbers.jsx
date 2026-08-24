@@ -22,6 +22,11 @@ const getInitials = (name) => {
   return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const slugify = (value) =>
   String(value || '')
     .trim()
@@ -90,7 +95,7 @@ export default function AdminBarbers() {
       phone: barber.phone || '',
       password: barber.password || '123456',
       specialty: barber.specialty || '',
-      photo: barber.photo || null,
+      photo: (barber.photo && isValidPhoto(barber.photo)) ? barber.photo : null,
       active: barber.active !== false
     });
     setError('');
@@ -230,7 +235,7 @@ export default function AdminBarbers() {
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                         <div className="avatar-circle">
-                          {barber.photo ? <img src={barber.photo} alt={barber.name} /> : getInitials(barber.name)}
+                          {isValidPhoto(barber.photo) ? <img src={barber.photo} alt={barber.name} /> : getInitials(barber.name)}
                         </div>
                         <span className="fw-600">{barber.name}</span>
                       </div>
