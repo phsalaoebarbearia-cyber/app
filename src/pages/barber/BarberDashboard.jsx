@@ -9,6 +9,7 @@ import {
 
 const FILTERS = [
   { key: 'all', label: 'Todos' },
+  { key: 'pending', label: 'Pendentes' },
   { key: 'confirmed', label: 'Confirmados' },
   { key: 'today', label: 'Hoje' },
 ];
@@ -97,11 +98,13 @@ const BarberDashboard = () => {
 
   const filteredAppointments = appointments.filter((apt) => {
     if (filter === 'confirmed') return apt.status === 'confirmed';
+    if (filter === 'pending') return apt.status === 'pending';
     if (filter === 'today') return String(apt.date || '').slice(0, 10) === today;
     return true;
   });
 
   const confirmedCount = filteredAppointments.filter((a) => a.status === 'confirmed').length;
+  const pendingCount = filteredAppointments.filter((a) => a.status === 'pending').length;
   const cancelledCount = filteredAppointments.filter((a) => a.status === 'cancelled').length;
   const hourEntries = hours ? Object.entries(hours) : [];
 
@@ -109,6 +112,13 @@ const BarberDashboard = () => {
     await updateAppointmentStatus(id, 'cancelled');
     setAppointments((prev) =>
       prev.map((apt) => (apt.id === id ? { ...apt, status: 'cancelled' } : apt))
+    );
+  };
+
+  const handleAccept = async (id) => {
+    await updateAppointmentStatus(id, 'confirmed');
+    setAppointments((prev) =>
+      prev.map((apt) => (apt.id === id ? { ...apt, status: 'confirmed' } : apt))
     );
   };
 
@@ -122,7 +132,7 @@ const BarberDashboard = () => {
       </div>
 
       <div className="page-body">
-        <div className="grid-3">
+        <div className="grid-4">
           <div className="stat-card">
             <div className="stat-icon accent">
               <CalendarDays size={22} />
@@ -140,6 +150,16 @@ const BarberDashboard = () => {
             <div className="stat-info">
               <div className="value">{confirmedCount}</div>
               <div className="label">Confirmados</div>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-icon warning">
+              <Clock size={22} />
+            </div>
+            <div className="stat-info">
+              <div className="value">{pendingCount}</div>
+              <div className="label">Pendentes</div>
             </div>
           </div>
 
@@ -212,6 +232,15 @@ const BarberDashboard = () => {
                       </div>
                     </div>
                     <span className={`badge ${status.badge}`}>{status.label}</span>
+                    {apt.status === 'pending' && (
+                      <button
+                        className="btn btn-sm btn-accent"
+                        onClick={() => handleAccept(apt.id)}
+                        style={{ marginRight: 8 }}
+                      >
+                        <CheckCircle2 size={14} /> Aceitar
+                      </button>
+                    )}
                     {apt.status !== 'cancelled' && (
                       <button
                         className="btn btn-sm btn-danger"

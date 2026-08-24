@@ -4,12 +4,14 @@ import { useAuth } from '../context/AuthContext';
 import { loadAppointmentsByUser, updateAppointmentStatus } from '../services/FirestoreService';
 
 const STATUS_LABELS = {
+  pending: 'Pendente',
   confirmed: 'Confirmado',
   completed: 'Concluído',
   cancelled: 'Cancelado',
 };
 
 const STATUS_BADGES = {
+  pending: 'badge-warning',
   confirmed: 'badge-success',
   completed: 'badge-gold',
   cancelled: 'badge-error',
@@ -17,6 +19,7 @@ const STATUS_BADGES = {
 
 const FILTERS = [
   { key: 'all', label: 'Todos' },
+  { key: 'pending', label: 'Pendentes' },
   { key: 'confirmed', label: 'Confirmados' },
   { key: 'cancelled', label: 'Cancelados' },
   { key: 'completed', label: 'Concluídos' },
@@ -115,7 +118,7 @@ const AppointmentsList = () => {
                     <span className={`badge ${STATUS_BADGES[appointment.status] || 'badge-accent'}`}>
                       {STATUS_LABELS[appointment.status] || appointment.status}
                     </span>
-                    {appointment.status === 'confirmed' && (
+                    {(appointment.status === 'confirmed' || appointment.status === 'pending') && (
                       <button className="btn btn-outline btn-sm" onClick={() => handleCancel(appointment.id)}>
                         <XCircle size={15} />
                         Cancelar

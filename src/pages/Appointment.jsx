@@ -178,7 +178,7 @@ const Appointment = () => {
         },
         date: selectedDate.date.toISOString(),
         time: selectedTime,
-        status: 'confirmed',
+        status: 'pending',
         createdAt: new Date().toISOString(),
       });
       setSuccess(true);

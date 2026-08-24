@@ -76,6 +76,15 @@ export default function AdminAppointments() {
     }
   };
 
+  const acceptAppointment = async (apt) => {
+    try {
+      await updateAppointmentStatus(apt.id, 'confirmed');
+      setAppointments((prev) => prev.map((a) => (a.id === apt.id ? { ...a, status: 'confirmed' } : a)));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const cancelAppointment = async (apt) => {
     if (!window.confirm('Cancelar este agendamento?')) return;
     try {
@@ -187,7 +196,17 @@ export default function AdminAppointments() {
                     </td>
                     <td>
                       <div style={{ display: 'flex', gap: 8 }}>
-                        {apt.status !== 'completed' && (
+                        {apt.status === 'pending' && (
+                          <button
+                            className="btn btn-sm badge-success"
+                            style={{ background: 'rgba(76,175,80,0.15)', color: 'var(--success)' }}
+                            title="Aceitar agendamento"
+                            onClick={() => acceptAppointment(apt)}
+                          >
+                            <CheckCircle size={14} />
+                          </button>
+                        )}
+                        {apt.status !== 'completed' && apt.status !== 'pending' && (
                           <button
                             className="btn btn-sm badge-success"
                             style={{ background: 'rgba(76,175,80,0.15)', color: 'var(--success)' }}
