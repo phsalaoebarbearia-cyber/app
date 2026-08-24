@@ -12,6 +12,11 @@ const getInitials = (name) => {
   return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const clientNav = [
   { path: '/', label: 'Início', icon: Home },
   { path: '/agendar', label: 'Agendar', icon: Calendar },
@@ -92,7 +97,7 @@ export default function Layout({ children }) {
         <div className="sidebar-footer">
           <div className="sidebar-user">
             <div className="avatar">
-              {user?.photo ? (
+              {isValidPhoto(user?.photo) ? (
                 <img src={user.photo} alt="" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
               ) : (
                 getInitials(user?.name)

@@ -33,12 +33,17 @@ const Toggle = ({ checked, onChange }) => (
   </button>
 );
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const Settings = () => {
   const { user, updateProfile } = useAuth();
   const [pushNotifications, setPushNotifications] = useState(true);
   const [appointmentReminders, setAppointmentReminders] = useState(true);
   const [promotions, setPromotions] = useState(false);
-  const [photo, setPhoto] = useState(user?.photo || null);
+  const [photo, setPhoto] = useState((user?.photo && isValidPhoto(user.photo)) ? user.photo : null);
   const [savingPhoto, setSavingPhoto] = useState(false);
   const fileInputRef = useRef(null);
 

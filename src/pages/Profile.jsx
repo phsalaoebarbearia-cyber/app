@@ -8,13 +8,18 @@ const ROLE_LABELS = {
   admin: 'Administrador',
 };
 
+const isValidPhoto = (photo) => {
+  if (!photo) return false;
+  return photo.startsWith('data:') || photo.startsWith('http://') || photo.startsWith('https://') || photo.startsWith('./');
+};
+
 const Profile = () => {
   const { user, logout, updateProfile } = useAuth();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [phone] = useState(user?.phone || '');
-  const [photo, setPhoto] = useState(user?.photo || null);
+  const [photo, setPhoto] = useState((user?.photo && isValidPhoto(user.photo)) ? user.photo : null);
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -60,7 +65,7 @@ const Profile = () => {
   const handleCancel = () => {
     setName(user?.name || '');
     setEmail(user?.email || '');
-    setPhoto(user?.photo || null);
+    setPhoto((user?.photo && isValidPhoto(user.photo)) ? user.photo : null);
     setEditing(false);
   };
 
