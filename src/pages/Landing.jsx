@@ -120,10 +120,10 @@ const Landing = () => {
         <div style={styles.navInner}>
           <div style={styles.navBrand}>
             <img src="./Logo_ph.png" alt="PH" style={styles.navLogo} />
-            <div>
-              <span style={styles.navTitle}><span style={styles.logoPHInline}>PH</span> Barbearia</span>
-              <span style={styles.navSub}>Salão & Barbearia</span>
-            </div>
+            <span style={styles.navTitle}>
+              <span style={styles.logoPHInline}>PH</span>{' '}
+              <span style={styles.navTitleWhite}>Salão & Barbearia</span>
+            </span>
           </div>
           <div className="landing-nav-links" style={styles.navLinks}>
             <a href="#servicos" style={styles.navLink}>Serviços</a>
@@ -493,7 +493,7 @@ const Landing = () => {
           <div style={styles.footerCol}>
             <span style={styles.footerTitle}>Contato</span>
             <span style={styles.footerText}>(74) 99925-8772</span>
-            <span style={styles.footerText}>phbarbearia@email.com</span>
+            <span style={styles.footerText}>phsalaoebarbearia@gmail.com</span>
           </div>
         </div>
         <div style={styles.footerBottom}>
@@ -543,14 +543,13 @@ const styles = {
   },
   navTitle: {
     display: 'block',
-    fontWeight: 700,
-    fontSize: 16,
+    fontSize: 22,
     lineHeight: 1.2,
+    whiteSpace: 'nowrap',
   },
-  navSub: {
-    display: 'block',
-    fontSize: 11,
-    color: '#d4af37',
+  navTitleWhite: {
+    fontWeight: 700,
+    color: '#ffffff',
   },
   navLinks: {
     display: 'flex',
