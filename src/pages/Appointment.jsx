@@ -302,12 +302,17 @@ const Appointment = () => {
             <div className="time-grid">
               {timeSlots.map((time) => {
                 const taken = isSlotTaken(time);
+                const now = new Date();
+                const isToday = selectedDate && selectedDate.date.toDateString() === now.toDateString();
+                const [th, tm] = time.split(':').map(Number);
+                const isPast = isToday && (th < now.getHours() || (th === now.getHours() && tm <= now.getMinutes()));
+                const disabled = taken || isPast;
                 return (
                   <button
                     key={time}
-                    className={`time-slot ${selectedTime === time ? 'active' : ''} ${taken ? 'taken' : ''}`}
-                    onClick={() => !taken && setSelectedTime(time)}
-                    disabled={taken}
+                    className={`time-slot ${selectedTime === time ? 'active' : ''} ${taken ? 'taken' : ''} ${isPast ? 'taken' : ''}`}
+                    onClick={() => !disabled && setSelectedTime(time)}
+                    disabled={disabled}
                   >
                     {time}
                   </button>
