@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Scissors, Clock, MapPin, Phone, ChevronRight, Star, Navigation } from 'lucide-react';
+import { Scissors, Clock, MapPin, Phone, ChevronRight, ChevronLeft, Star, Navigation } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import { loadServices } from '../services/FirestoreService';
 
 const galleryImages = [
   './Logo_ph.png',
@@ -13,11 +14,11 @@ const galleryImages = [
   './Fotos/Corte.jpeg',
 ];
 
-const services = [
-  { name: 'Corte', price: 'R$ 45', icon: '✂️' },
-  { name: 'Barba', price: 'R$ 35', icon: '🪒' },
-  { name: 'Corte + Barba', price: 'R$ 70', icon: '💈' },
-  { name: 'Degradê', price: 'R$ 50', icon: '🔥' },
+const DEFAULT_SERVICES = [
+  { name: 'Corte', price: 45, description: 'Corte masculino ou feminino, feito com técnica e acabamento impecável.', icon: '✂️' },
+  { name: 'Barba', price: 35, description: 'Barba feita com navalha, toalha quente e hidratação completa.', icon: '🪒' },
+  { name: 'Corte + Barba', price: 70, description: 'Combo completo com corte e barba para o visual perfeito.', icon: '💈' },
+  { name: 'Degradê', price: 50, description: 'Degradê com degradê suave e acabamento na navalha.', icon: '🔥' },
 ];
 
 const aboutGallery1 = [
@@ -42,6 +43,9 @@ const Landing = () => {
   const [aboutIndex2, setAboutIndex2] = useState(0);
   const [aboutFade1, setAboutFade1] = useState(true);
   const [aboutFade2, setAboutFade2] = useState(true);
+  const [services, setServices] = useState(DEFAULT_SERVICES);
+  const [serviceIndex, setServiceIndex] = useState(0);
+  const [serviceFade, setServiceFade] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -75,6 +79,40 @@ const Landing = () => {
     }, 3800);
     return () => clearInterval(interval2);
   }, []);
+
+  useEffect(() => {
+    loadServices().then((data) => {
+      if (data && data.length > 0) setServices(data);
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (services.length <= 1) return;
+    const interval = setInterval(() => {
+      setServiceFade(false);
+      setTimeout(() => {
+        setServiceIndex((prev) => (prev + 1) % services.length);
+        setServiceFade(true);
+      }, 400);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [services.length]);
+
+  const prevService = () => {
+    setServiceFade(false);
+    setTimeout(() => {
+      setServiceIndex((prev) => (prev - 1 + services.length) % services.length);
+      setServiceFade(true);
+    }, 300);
+  };
+
+  const nextService = () => {
+    setServiceFade(false);
+    setTimeout(() => {
+      setServiceIndex((prev) => (prev + 1) % services.length);
+      setServiceFade(true);
+    }, 300);
+  };
 
   return (
     <div style={styles.page}>
@@ -176,13 +214,68 @@ const Landing = () => {
             Feito para quem busca{' '}
             <span style={styles.gold}>excelência</span>
           </h2>
-          <div className="landing-services" style={styles.servicesGrid}>
-            {services.map((s, i) => (
-              <div key={i} style={styles.serviceCard}>
-                <span style={{ fontSize: 32 }}>{s.icon}</span>
-                <h4 style={styles.serviceName}>{s.name}</h4>
-                <span style={styles.servicePrice}>{s.price}</span>
-              </div>
+          <div style={styles.carouselWrapper}>
+            <button onClick={prevService} style={styles.carouselArrow}>
+              <ChevronLeft size={24} />
+            </button>
+            <div style={styles.carouselTrack}>
+              {services.map((s, i) => {
+                const offset = i - serviceIndex;
+                const absOffset = Math.abs(offset);
+                const isActive = offset === 0;
+                return (
+                  <div
+                    key={s.id || s.name}
+                    style={{
+                      ...styles.serviceCardCarousel,
+                      opacity: isActive ? (serviceFade ? 1 : 0.3) : 0,
+                      transform: `translateX(${offset * 105}%) scale(${isActive ? 1 : 0.85})`,
+                      zIndex: isActive ? 2 : 1,
+                      pointerEvents: isActive ? 'auto' : 'none',
+                      transition: 'all 0.4s ease',
+                    }}
+                  >
+                    {s.photo ? (
+                      <img src={s.photo} alt={s.name} style={styles.servicePhoto} />
+                    ) : (
+                      <div style={styles.servicePhotoPlaceholder}>
+                        <span style={{ fontSize: 48 }}>{s.icon || '✂️'}</span>
+                      </div>
+                    )}
+                    <div style={styles.serviceCardBody}>
+                      <h4 style={styles.serviceCardName}>{s.name}</h4>
+                      <span style={styles.serviceCardPrice}>
+                        R$ {typeof s.price === 'number' ? s.price.toFixed(0) : s.price}
+                      </span>
+                      {s.description && (
+                        <p style={styles.serviceCardDesc}>{s.description}</p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <button onClick={nextService} style={styles.carouselArrow}>
+              <ChevronRight size={24} />
+            </button>
+          </div>
+          <div style={styles.carouselDots}>
+            {services.map((_, i) => (
+              <span
+                key={i}
+                onClick={() => {
+                  setServiceFade(false);
+                  setTimeout(() => {
+                    setServiceIndex(i);
+                    setServiceFade(true);
+                  }, 300);
+                }}
+                style={{
+                  ...styles.carouselDot,
+                  background: i === serviceIndex ? '#d4af37' : 'rgba(255,255,255,0.2)',
+                  width: i === serviceIndex ? 24 : 8,
+                }}
+              />
             ))}
           </div>
         </div>
@@ -670,30 +763,91 @@ const styles = {
     marginBottom: 40,
     lineHeight: 1.2,
   },
-  servicesGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: 20,
+  carouselWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 32,
   },
-  serviceCard: {
+  carouselArrow: {
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '50%',
+    width: 44,
+    height: 44,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    color: '#d4af37',
+    flexShrink: 0,
+    transition: 'background 0.2s',
+  },
+  carouselTrack: {
+    position: 'relative',
+    width: '100%',
+    maxWidth: 420,
+    height: 380,
+    margin: '0 auto',
+    overflow: 'hidden',
+  },
+  serviceCardCarousel: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
     background: '#141414',
     border: '1px solid rgba(255,255,255,0.06)',
-    borderRadius: 16,
-    padding: '32px 20px',
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  servicePhoto: {
+    width: '100%',
+    height: 200,
+    objectFit: 'cover',
+    display: 'block',
+  },
+  servicePhotoPlaceholder: {
+    width: '100%',
+    height: 200,
+    background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  serviceCardBody: {
+    padding: '20px 24px 24px',
     textAlign: 'center',
-    transition: 'all 0.2s',
-    cursor: 'pointer',
   },
-  serviceName: {
-    fontSize: 16,
-    fontWeight: 600,
-    marginTop: 12,
-    marginBottom: 4,
-  },
-  servicePrice: {
+  serviceCardName: {
     fontSize: 20,
     fontWeight: 700,
+    marginBottom: 6,
+  },
+  serviceCardPrice: {
+    fontSize: 24,
+    fontWeight: 800,
     color: '#d4af37',
+    display: 'block',
+    marginBottom: 10,
+  },
+  serviceCardDesc: {
+    fontSize: 14,
+    color: '#888',
+    lineHeight: 1.5,
+    margin: 0,
+  },
+  carouselDots: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 8,
+    marginTop: 24,
+  },
+  carouselDot: {
+    height: 8,
+    borderRadius: 4,
+    cursor: 'pointer',
+    transition: 'all 0.3s',
   },
   aboutGrid: {
     display: 'grid',
