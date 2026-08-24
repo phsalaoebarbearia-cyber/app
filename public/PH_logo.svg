@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="goldMain" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF1A8"/>
+      <stop offset="15%" style="stop-color:#F5D060"/>
+      <stop offset="30%" style="stop-color:#D4AF37"/>
+      <stop offset="50%" style="stop-color:#C5961A"/>
+      <stop offset="65%" style="stop-color:#D4AF37"/>
+      <stop offset="80%" style="stop-color:#F5D060"/>
+      <stop offset="100%" style="stop-color:#B8860B"/>
+    </linearGradient>
+    <linearGradient id="goldEdge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE680"/>
+      <stop offset="50%" style="stop-color:#D4AF37"/>
+      <stop offset="100%" style="stop-color:#8B6914"/>
+    </linearGradient>
+    <linearGradient id="goldHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFDE0;stop-opacity:0.9"/>
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:0"/>
+      <stop offset="100%" style="stop-color:#8B6914;stop-opacity:0"/>
+    </linearGradient>
+    <radialGradient id="goldShine" cx="50%" cy="35%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFAE0;stop-opacity:0.7"/>
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="bevel" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feSpecularLighting in="blur" surfaceScale="5" specularConstant="0.8" specularExponent="20" result="specular">
+        <fePointLight x="200" y="100" z="200"/>
+      </feSpecularLighting>
+      <feComposite in="specular" in2="SourceAlpha" operator="in" result="specularClipped"/>
+      <feComposite in="SourceGraphic" in2="specularClipped" operator="arithmetic" k1="0" k2="1" k3="0.6" k4="0" result="lit"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="shadowBlur"/>
+      <feOffset in="shadowBlur" dx="2" dy="3" result="shadowOffset"/>
+      <feFlood flood-color="#000000" flood-opacity="0.4" result="shadowColor"/>
+      <feComposite in="shadowColor" in2="shadowOffset" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="lit"/>
+      </feMerge>
+    </filter>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="glowBlur"/>
+      <feFlood flood-color="#D4AF37" flood-opacity="0.3" result="glowColor"/>
+      <feComposite in="glowColor" in2="glowBlur" operator="in" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="innerBevel" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+      <feSpecularLighting in="blur" surfaceScale="8" specularConstant="1" specularExponent="30" result="spec">
+        <feDistantLight azimuth="225" elevation="45"/>
+      </feSpecularLighting>
+      <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn"/>
+      <feComposite in="SourceGraphic" in2="specIn" operator="arithmetic" k1="0" k2="1" k3="0.4" k4="0"/>
+    </filter>
+  </defs>
+  
+  <g filter="url(#glow)">
+    <text x="300" y="270" text-anchor="middle" font-family="'Algerian', 'Georgia', 'Times New Roman', serif" font-weight="bold" font-size="220" fill="url(#goldEdge)" filter="url(#bevel)" letter-spacing="15">PH</text>
+    <text x="300" y="270" text-anchor="middle" font-family="'Algerian', 'Georgia', 'Times New Roman', serif" font-weight="bold" font-size="220" fill="url(#goldMain)" letter-spacing="15" opacity="0.9">PH</text>
+    <text x="300" y="270" text-anchor="middle" font-family="'Algerian', 'Georgia', 'Times New Roman', serif" font-weight="bold" font-size="220" fill="url(#goldHighlight)" letter-spacing="15">PH</text>
+    <ellipse cx="300" cy="180" rx="120" ry="60" fill="url(#goldShine)"/>
+  </g>
+</svg>

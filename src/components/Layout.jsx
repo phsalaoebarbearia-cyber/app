@@ -59,7 +59,7 @@ export default function Layout({ children }) {
       )}
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <img src="/app/Logo_ph.png" alt="PH" />
+          <img src="./Logo_ph.png" alt="PH" />
           <div className="brand">
             <h2>PH Barbearia</h2>
             <p>Salão & Barbearia</p>

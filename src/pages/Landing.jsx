@@ -5,13 +5,12 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
 const galleryImages = [
-  '/Logo_ph.png',
-  '/app/Fotos/Prifissional01.png',
-  '/app/Fotos/Profissional02.png',
-  '/app/Fotos/Profissional03.png',
-  '/app/Fotos/Profissional04.png',
-  '/app/Fotos/Corte.jpeg',
-  '/app/Fotos/banner.png',
+  './Logo_ph.png',
+  './Fotos/Prifissional01.png',
+  './Fotos/Profissional02.png',
+  './Fotos/Profissional03.png',
+  './Fotos/Profissional04.png',
+  './Fotos/Corte.jpeg',
 ];
 
 const services = [
@@ -22,17 +21,17 @@ const services = [
 ];
 
 const aboutGallery1 = [
-  '/app/Fotos/Profissional03.png',
-  '/app/Fotos/Profissional02.png',
-  '/app/Fotos/Corte.jpeg',
-  '/app/Fotos/banner.png',
+  './Fotos/Profissional03.png',
+  './Fotos/Profissional02.png',
+  './Fotos/Corte.jpeg',
+  './Fotos/banner.png',
 ];
 
 const aboutGallery2 = [
-  '/app/Fotos/Prifissional01.png',
-  '/app/Fotos/Profissional04.png',
-  '/app/Fotos/Profissional03.png',
-  '/app/Fotos/Corte.jpeg',
+  './Fotos/Prifissional01.png',
+  './Fotos/Profissional04.png',
+  './Fotos/Profissional03.png',
+  './Fotos/Corte.jpeg',
 ];
 
 const Landing = () => {
@@ -82,7 +81,7 @@ const Landing = () => {
       <nav style={styles.nav}>
         <div style={styles.navInner}>
           <div style={styles.navBrand}>
-            <img src="/app/Logo_ph.png" alt="PH" style={styles.navLogo} />
+            <img src="./Logo_ph.png" alt="PH" style={styles.navLogo} />
             <div>
               <span style={styles.navTitle}><span style={styles.logoPHInline}>PH</span> Barbearia</span>
               <span style={styles.navSub}>Salão & Barbearia</span>
@@ -388,7 +387,7 @@ const Landing = () => {
       <footer style={styles.footer}>
         <div className="landing-footer" style={styles.footerInner}>
           <div style={styles.footerCol}>
-            <img src="/app/Logo_ph.png" alt="PH" style={{ width: 48, height: 48, borderRadius: '50%', border: '2px solid #d4af37' }} />
+            <img src="./Logo_ph.png" alt="PH" style={{ width: 48, height: 48, borderRadius: '50%', border: '2px solid #d4af37' }} />
             <span style={{ fontWeight: 700, fontSize: 16, marginTop: 8 }}><span style={styles.logoPHInline}>PH</span> Barbearia</span>
             <span style={{ color: '#777', fontSize: 13 }}>Salão & Barbearia</span>
           </div>
