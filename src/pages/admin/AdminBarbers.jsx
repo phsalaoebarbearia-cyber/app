@@ -37,6 +37,7 @@ const emptyForm = {
   phone: '',
   password: '123456',
   specialty: '',
+  photo: null,
   active: true
 };
 
@@ -89,6 +90,7 @@ export default function AdminBarbers() {
       phone: barber.phone || '',
       password: barber.password || '123456',
       specialty: barber.specialty || '',
+      photo: barber.photo || null,
       active: barber.active !== false
     });
     setError('');
@@ -120,6 +122,7 @@ export default function AdminBarbers() {
           phone: form.phone.trim(),
           password: form.password,
           specialty: form.specialty.trim(),
+          photo: form.photo || null,
           active: form.active
         });
       } else {
@@ -132,8 +135,8 @@ export default function AdminBarbers() {
           phone: form.phone.trim(),
           password: form.password,
           specialty: form.specialty.trim(),
+          photo: form.photo || null,
           active: form.active,
-          photo: '',
           createdAt
         };
         await createBarber(barber);
@@ -313,6 +316,75 @@ export default function AdminBarbers() {
                 value={form.specialty}
                 onChange={(e) => setForm({ ...form, specialty: e.target.value })}
               />
+            </div>
+            <div className="form-group">
+              <label>Foto</label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                {form.photo ? (
+                  <img
+                    src={form.photo}
+                    alt="Preview"
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '2px solid var(--border)',
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: '50%',
+                      background: 'var(--surface)',
+                      border: '2px dashed var(--border)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--gray)',
+                      fontSize: 13,
+                    }}
+                  >
+                    Sem foto
+                  </div>
+                )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <label
+                    className="btn btn-outline btn-sm"
+                    style={{ cursor: 'pointer', textAlign: 'center' }}
+                  >
+                    Carregar foto
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        if (file.size > 2 * 1024 * 1024) {
+                          alert('Máximo 2MB');
+                          return;
+                        }
+                        const reader = new FileReader();
+                        reader.onloadend = () => setForm({ ...form, photo: reader.result });
+                        reader.readAsDataURL(file);
+                      }}
+                    />
+                  </label>
+                  {form.photo && (
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-sm"
+                      style={{ color: 'var(--error)', borderColor: 'var(--error)' }}
+                      onClick={() => setForm({ ...form, photo: null })}
+                    >
+                      Remover
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="form-group">
               <label>Status</label>
