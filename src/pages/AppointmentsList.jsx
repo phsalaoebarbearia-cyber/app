@@ -118,7 +118,7 @@ const AppointmentsList = () => {
                     <span className={`badge ${STATUS_BADGES[appointment.status] || 'badge-accent'}`}>
                       {STATUS_LABELS[appointment.status] || appointment.status}
                     </span>
-                    {(appointment.status === 'confirmed' || appointment.status === 'pending') && (
+                    {appointment.status === 'pending' && (
                       <button className="btn btn-outline btn-sm" onClick={() => handleCancel(appointment.id)}>
                         <XCircle size={15} />
                         Cancelar
