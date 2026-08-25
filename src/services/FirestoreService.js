@@ -79,6 +79,11 @@ export const updateUser = async (userId, updates) => {
   await updateDoc(docRef, updates);
 };
 
+export const deleteUser = async (userId) => {
+  const docRef = doc(db, 'users', userId);
+  await deleteDoc(docRef);
+};
+
 export const createBarber = async (barber) => {
   const docRef = doc(db, 'barbers', barber.id);
   await setDoc(docRef, barber);
