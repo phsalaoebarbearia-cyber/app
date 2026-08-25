@@ -1000,7 +1000,7 @@ const styles = {
   },
   mapWrapper: {
     flex: 1,
-    minHeight: 400,
+    height: 400,
     borderRadius: 12,
     overflow: 'hidden',
   },
