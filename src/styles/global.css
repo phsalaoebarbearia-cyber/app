@@ -1112,6 +1112,17 @@ tr:hover td {
   transform: scale(1.1);
 }
 
+.landing-about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.landing-about-images {
+  position: relative;
+  height: 480px;
+}
+
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
@@ -1174,6 +1185,18 @@ tr:hover td {
   .landing-about {
     grid-template-columns: 1fr;
   }
+  .landing-about-images {
+    position: relative;
+    height: 280px;
+  }
+  .landing-about-m1 {
+    width: 140px !important;
+    height: 190px !important;
+  }
+  .landing-about-m2 {
+    width: 180px !important;
+    height: 230px !important;
+  }
   .landing-nav-links {
     display: none !important;
   }
@@ -1183,6 +1206,10 @@ tr:hover td {
   }
   .landing-map {
     flex-direction: column;
+  }
+  .landing-map-wrapper {
+    height: 350px !important;
+    min-height: 350px !important;
   }
   .landing-map-sidebar {
     width: 100% !important;
@@ -1206,6 +1233,21 @@ tr:hover td {
   .landing-mirror {
     width: 260px;
     height: 260px;
+  }
+  .landing-about-images {
+    height: 220px;
+  }
+  .landing-about-m1 {
+    width: 110px !important;
+    height: 150px !important;
+  }
+  .landing-about-m2 {
+    width: 140px !important;
+    height: 180px !important;
+  }
+  .landing-map-wrapper {
+    height: 280px !important;
+    min-height: 280px !important;
   }
   .landing-hero-stats {
     flex-direction: column;

@@ -317,8 +317,8 @@ const Landing = () => {
                 </div>
               </div>
             </div>
-            <div style={styles.aboutImages}>
-              <div style={styles.aboutMirror1}>
+            <div className="landing-about-images" style={styles.aboutImages}>
+              <div className="landing-about-m1" style={styles.aboutMirror1}>
                 <div style={styles.aboutMirrorFrame}>
                   {aboutGallery1.map((img, i) => (
                     <img
@@ -334,7 +334,7 @@ const Landing = () => {
                 </div>
                 <div style={styles.aboutMirrorReflection} />
               </div>
-              <div style={styles.aboutMirror2}>
+              <div className="landing-about-m2" style={styles.aboutMirror2}>
                 <div style={styles.aboutMirrorFrame}>
                   {aboutGallery2.map((img, i) => (
                     <img
@@ -367,7 +367,7 @@ const Landing = () => {
             abrir as direções no seu navegador.
           </p>
           <div className="landing-map" style={styles.mapContainer}>
-            <div style={styles.mapWrapper}>
+            <div className="landing-map-wrapper" style={styles.mapWrapper}>
               <MapContainer
                 center={[-11.303724486342322, -41.850961799789104]}
                 zoom={16}
@@ -864,7 +864,6 @@ const styles = {
   },
   aboutGrid: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
     gap: 60,
     alignItems: 'center',
   },
