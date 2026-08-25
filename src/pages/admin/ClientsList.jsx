@@ -52,6 +52,7 @@ export default function ClientsList() {
   const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [previewPhoto, setPreviewPhoto] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -211,7 +212,8 @@ export default function ClientsList() {
                   <tr key={client.id}>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div className="avatar-circle">
+                        <div className="avatar-circle" style={{ cursor: isValidPhoto(client.photo) ? 'pointer' : 'default' }}
+                          onClick={() => isValidPhoto(client.photo) && setPreviewPhoto(client.photo)}>
                           {isValidPhoto(client.photo) ? (
                             <img src={client.photo} alt="" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
                           ) : (
@@ -362,6 +364,54 @@ export default function ClientsList() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {previewPhoto && (
+        <div
+          onClick={() => setPreviewPhoto(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 10000,
+            background: 'rgba(0,0,0,0.85)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+          }}
+        >
+          <button
+            onClick={() => setPreviewPhoto(null)}
+            style={{
+              position: 'absolute',
+              top: 24,
+              right: 24,
+              background: 'none',
+              border: 'none',
+              color: '#fff',
+              fontSize: 28,
+              cursor: 'pointer',
+              padding: 4,
+              lineHeight: 1,
+            }}
+          >
+            <X size={28} />
+          </button>
+          <img
+            src={previewPhoto}
+            alt="Foto do cliente"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '85vh',
+              borderRadius: 16,
+              border: '3px solid rgba(255,255,255,0.15)',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+              objectFit: 'contain',
+            }}
+          />
         </div>
       )}
     </>
