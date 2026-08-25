@@ -3,7 +3,8 @@ import { Search, CheckCircle, XCircle, Printer } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import {
   loadAppointments,
-  updateAppointmentStatus
+  updateAppointmentStatus,
+  deleteAppointment,
 } from '../../services/FirestoreService';
 
 const statusBadges = {
@@ -86,10 +87,10 @@ export default function AdminAppointments() {
   };
 
   const cancelAppointment = async (apt) => {
-    if (!window.confirm('Cancelar este agendamento?')) return;
+    if (!window.confirm('Excluir este agendamento?')) return;
     try {
-      await updateAppointmentStatus(apt.id, 'cancelled');
-      setAppointments((prev) => prev.map((a) => (a.id === apt.id ? { ...a, status: 'cancelled' } : a)));
+      await deleteAppointment(apt.id);
+      setAppointments((prev) => prev.filter((a) => a.id !== apt.id));
     } catch (e) {
       console.error(e);
     }

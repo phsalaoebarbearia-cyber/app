@@ -5,6 +5,7 @@ import {
   loadAppointmentsByBarber,
   loadHours,
   updateAppointmentStatus,
+  deleteAppointment,
 } from '../../services/FirestoreService';
 
 const FILTERS = [
@@ -109,10 +110,8 @@ const BarberDashboard = () => {
   const hourEntries = hours ? Object.entries(hours) : [];
 
   const handleCancel = async (id) => {
-    await updateAppointmentStatus(id, 'cancelled');
-    setAppointments((prev) =>
-      prev.map((apt) => (apt.id === id ? { ...apt, status: 'cancelled' } : apt))
-    );
+    await deleteAppointment(id);
+    setAppointments((prev) => prev.filter((apt) => apt.id !== id));
   };
 
   const handleAccept = async (id) => {
