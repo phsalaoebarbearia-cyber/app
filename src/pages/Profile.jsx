@@ -43,8 +43,8 @@ const Profile = () => {
       return;
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-      alert('A imagem deve ter no máximo 2MB');
+    if (file.size > 750 * 1024) {
+      alert('A imagem selecionada é muito grande! Envie uma imagem de até 750KB.');
       return;
     }
 

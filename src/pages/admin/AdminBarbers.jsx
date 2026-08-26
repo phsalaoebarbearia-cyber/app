@@ -391,8 +391,8 @@ export default function AdminBarbers() {
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (!file) return;
-                        if (file.size > 2 * 1024 * 1024) {
-                          alert('Máximo 2MB');
+                        if (file.size > 750 * 1024) {
+                          alert('A imagem selecionada e muito grande! Envie uma imagem de ate 750KB.');
                           return;
                         }
                         const reader = new FileReader();

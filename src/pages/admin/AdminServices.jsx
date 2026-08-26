@@ -125,8 +125,8 @@ export default function AdminServices() {
   const handlePhotoUpload = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      setError('Foto deve ter no máximo 2MB');
+    if (file.size > 750 * 1024) {
+      setError('A imagem selecionada e muito grande! Envie uma imagem de ate 750KB.');
       return;
     }
     const reader = new FileReader();
@@ -277,7 +277,7 @@ export default function AdminServices() {
               ) : (
                 <label style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', border: '2px dashed var(--border)', borderRadius: 8, cursor: 'pointer', color: 'var(--gray)', fontSize: 14 }}>
                   <Upload size={18} />
-                  Escolher foto (máx. 2MB)
+                  Escolher foto (máx. 750KB)
                   <input type="file" accept="image/*" onChange={handlePhotoUpload} style={{ display: 'none' }} />
                 </label>
               )}

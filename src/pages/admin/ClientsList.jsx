@@ -331,8 +331,8 @@ export default function ClientsList() {
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (!file) return;
-                        if (file.size > 2 * 1024 * 1024) {
-                          alert('Máximo 2MB');
+                        if (file.size > 750 * 1024) {
+                          alert('A imagem selecionada é muito grande! Envie uma imagem de até 750KB.');
                           return;
                         }
                         const reader = new FileReader();
