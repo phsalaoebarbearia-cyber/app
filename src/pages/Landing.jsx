@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Scissors, Clock, MapPin, Phone, ChevronRight, ChevronLeft, Star, Navigation } from 'lucide-react';
+import { Scissors, Clock, MapPin, Phone, ChevronRight, ChevronLeft, Star, Navigation, Download } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { loadServices } from '../services/FirestoreService';
@@ -316,6 +316,19 @@ const Landing = () => {
                   <span>Localização acessível</span>
                 </div>
               </div>
+              <a
+                href="/app/ph-barbearia.apk"
+                download="ph-barbearia.apk"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  marginTop: 24, padding: '12px 24px', borderRadius: 8,
+                  backgroundColor: '#d4af37', color: '#111', fontWeight: 600,
+                  fontSize: 15, textDecoration: 'none', cursor: 'pointer',
+                }}
+              >
+                <Download size={18} />
+                Baixar App (APK)
+              </a>
             </div>
             <div className="landing-about-images" style={styles.aboutImages}>
               <div className="landing-about-m1" style={styles.aboutMirror1}>
