@@ -385,7 +385,7 @@ const Landing = () => {
                 center={[-11.303724486342322, -41.850961799789104]}
                 zoom={16}
                 scrollWheelZoom={false}
-                style={{ height: '100%', width: '100%', borderRadius: 12 }}
+                style={{ height: '100%', width: '100%', minHeight: 280, borderRadius: 12 }}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -1014,6 +1014,7 @@ const styles = {
   mapWrapper: {
     flex: 1,
     height: 400,
+    position: 'relative',
     borderRadius: 12,
     overflow: 'hidden',
   },

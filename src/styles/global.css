@@ -1209,6 +1209,7 @@ tr:hover td {
   }
   .landing-map-wrapper {
     height: 350px !important;
+    position: relative !important;
   }
   .landing-map-sidebar {
     width: 100% !important;
@@ -1246,6 +1247,7 @@ tr:hover td {
   }
   .landing-map-wrapper {
     height: 280px !important;
+    position: relative !important;
   }
   .landing-hero-stats {
     flex-direction: column;
