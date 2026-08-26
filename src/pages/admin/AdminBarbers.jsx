@@ -6,7 +6,8 @@ import {
   createBarber,
   updateBarber,
   deleteBarber,
-  createUser
+  createUser,
+  loadServices
 } from '../../services/FirestoreService';
 
 const iconBtn = {
@@ -53,6 +54,8 @@ export default function AdminBarbers() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
+  const [services, setServices] = useState([]);
+  const [selectedServiceIds, setSelectedServiceIds] = useState([]);
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -64,8 +67,18 @@ export default function AdminBarbers() {
     }
   };
 
+  const fetchServices = async () => {
+    try {
+      const data = await loadServices();
+      setServices(data.filter((s) => s.active !== false));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     fetchBarbers();
+    fetchServices();
   }, []);
 
   if (!user || user.role !== 'admin') return null;
@@ -83,6 +96,7 @@ export default function AdminBarbers() {
   const openCreate = () => {
     setEditing(null);
     setForm(emptyForm);
+    setSelectedServiceIds([]);
     setError('');
     setModalOpen(true);
   };
@@ -98,8 +112,15 @@ export default function AdminBarbers() {
       photo: (barber.photo && isValidPhoto(barber.photo)) ? barber.photo : null,
       active: barber.active !== false
     });
+    setSelectedServiceIds(barber.serviceIds || []);
     setError('');
     setModalOpen(true);
+  };
+
+  const toggleServiceId = (serviceId) => {
+    setSelectedServiceIds((prev) =>
+      prev.includes(serviceId) ? prev.filter((id) => id !== serviceId) : [...prev, serviceId]
+    );
   };
 
   const handleNameChange = (name) => {
@@ -128,7 +149,8 @@ export default function AdminBarbers() {
           password: form.password,
           specialty: form.specialty.trim(),
           photo: form.photo || null,
-          active: form.active
+          active: form.active,
+          serviceIds: selectedServiceIds
         });
       } else {
         const id = Date.now().toString();
@@ -142,6 +164,7 @@ export default function AdminBarbers() {
           specialty: form.specialty.trim(),
           photo: form.photo || null,
           active: form.active,
+          serviceIds: selectedServiceIds,
           createdAt
         };
         await createBarber(barber);
@@ -400,6 +423,25 @@ export default function AdminBarbers() {
               >
                 {form.active ? 'Ativo' : 'Inativo'}
               </button>
+            </div>
+            <div className="form-group">
+              <label>Serviços que realiza</label>
+              <div className="text-gray fs-sm mb-sm">Se nenhum selecionado, realiza todos</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {services.map((s) => {
+                  const isSelected = selectedServiceIds.includes(s.id);
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      className={`chip ${isSelected ? 'active' : ''}`}
+                      onClick={() => toggleServiceId(s.id)}
+                    >
+                      {isSelected ? '✓ ' : ''}{s.name}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
             <div style={{ display: 'flex', gap: 12 }}>
               <button className="btn btn-accent btn-sm" onClick={handleSave} disabled={saving}>

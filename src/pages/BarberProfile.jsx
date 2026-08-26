@@ -48,7 +48,8 @@ const BarberProfile = () => {
         user?.id ? loadFavorites(user.id).catch(() => []) : Promise.resolve([]),
       ]);
       setBarber(barbersData.find((b) => b.id === id) || null);
-      setServices(servicesData.filter((s) => s.active !== false));
+      const foundBarber = barbersData.find((b) => b.id === id);
+      setServices(servicesData.filter((s) => s.active !== false && (!foundBarber?.serviceIds?.length || foundBarber.serviceIds.includes(s.id))));
       if (hoursData) setHours(hoursData);
       setFavorites(favData);
     };

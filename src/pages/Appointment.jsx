@@ -23,13 +23,13 @@ const DAY_NAMES = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 const MONTH_NAMES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
 const DEFAULT_HOURS = {
-  mon: { active: true, open: '09:00', close: '19:00' },
-  tue: { active: true, open: '09:00', close: '19:00' },
-  wed: { active: true, open: '09:00', close: '19:00' },
-  thu: { active: true, open: '09:00', close: '19:00' },
-  fri: { active: true, open: '09:00', close: '19:00' },
-  sat: { active: true, open: '09:00', close: '17:00' },
-  sun: { active: false, open: '09:00', close: '13:00' },
+  mon: { active: true, open: '08:00', close: '22:00' },
+  tue: { active: true, open: '08:00', close: '22:00' },
+  wed: { active: true, open: '08:00', close: '22:00' },
+  thu: { active: true, open: '08:00', close: '22:00' },
+  fri: { active: true, open: '08:00', close: '22:00' },
+  sat: { active: true, open: '08:00', close: '20:00' },
+  sun: { active: false, open: '08:00', close: '13:00' },
 };
 
 const getInitials = (name) => {
@@ -211,9 +211,46 @@ const Appointment = () => {
         )}
 
         <div className="page-section">
-          <h2>1. Escolha o Serviço</h2>
+          <h2>1. Escolha o Barbeiro</h2>
+          <div className="chip-group">
+            {barbers.map((barber) => (
+              <button
+                key={barber.id}
+                className={`chip ${selectedBarber?.id === barber.id ? 'active' : ''}`}
+                style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                onClick={() => {
+                  setSelectedBarber(barber);
+                  if (selectedService && barber.serviceIds?.length && !barber.serviceIds.includes(selectedService.id)) {
+                    setSelectedService(null);
+                  }
+                }}
+              >
+                {isValidPhoto(barber.photo) ? (
+                  <img
+                    className="avatar-circle"
+                    src={barber.photo}
+                    alt={barber.name}
+                    style={{ width: 26, height: 26, borderWidth: 0 }}
+                  />
+                ) : (
+                  <span
+                    className="avatar-circle"
+                    style={{ width: 26, height: 26, fontSize: 10, borderWidth: 0 }}
+                  >
+                    {getInitials(barber.name)}
+                  </span>
+                )}
+                {barber.name.split(' ')[0]}
+              </button>
+            ))}
+            {barbers.length === 0 && <p className="text-gray">Carregando barbeiros...</p>}
+          </div>
+        </div>
+
+        <div className="page-section">
+          <h2>2. Escolha o Serviço</h2>
           <div className="grid-4">
-            {services.map((service) => (
+            {services.filter((s) => !selectedBarber?.serviceIds?.length || selectedBarber.serviceIds.includes(s.id)).map((service) => (
               <div
                 key={service.id}
                 className={`service-card-web ${selectedService?.id === service.id ? 'selected' : ''}`}
@@ -237,38 +274,6 @@ const Appointment = () => {
               </div>
             ))}
             {services.length === 0 && <p className="text-gray">Carregando serviços...</p>}
-          </div>
-        </div>
-
-        <div className="page-section">
-          <h2>2. Escolha o Barbeiro</h2>
-          <div className="chip-group">
-            {barbers.map((barber) => (
-              <button
-                key={barber.id}
-                className={`chip ${selectedBarber?.id === barber.id ? 'active' : ''}`}
-                style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-                onClick={() => setSelectedBarber(barber)}
-              >
-                {isValidPhoto(barber.photo) ? (
-                  <img
-                    className="avatar-circle"
-                    src={barber.photo}
-                    alt={barber.name}
-                    style={{ width: 26, height: 26, borderWidth: 0 }}
-                  />
-                ) : (
-                  <span
-                    className="avatar-circle"
-                    style={{ width: 26, height: 26, fontSize: 10, borderWidth: 0 }}
-                  >
-                    {getInitials(barber.name)}
-                  </span>
-                )}
-                {barber.name.split(' ')[0]}
-              </button>
-            ))}
-            {barbers.length === 0 && <p className="text-gray">Carregando barbeiros...</p>}
           </div>
         </div>
 

@@ -12,13 +12,13 @@ const WEEK_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const WEEK_SHORT = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
 const defaultHours = () => ({
-  mon: { open: '09:00', close: '19:00', active: true },
-  tue: { open: '09:00', close: '19:00', active: true },
-  wed: { open: '09:00', close: '19:00', active: true },
-  thu: { open: '09:00', close: '19:00', active: true },
-  fri: { open: '09:00', close: '19:00', active: true },
-  sat: { open: '09:00', close: '17:00', active: true },
-  sun: { open: '09:00', close: '17:00', active: false }
+  mon: { open: '08:00', close: '22:00', active: true },
+  tue: { open: '08:00', close: '22:00', active: true },
+  wed: { open: '08:00', close: '22:00', active: true },
+  thu: { open: '08:00', close: '22:00', active: true },
+  fri: { open: '08:00', close: '22:00', active: true },
+  sat: { open: '08:00', close: '20:00', active: true },
+  sun: { open: '08:00', close: '13:00', active: false }
 });
 
 const toIso = (date) =>
