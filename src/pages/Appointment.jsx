@@ -211,7 +211,7 @@ const Appointment = () => {
         )}
 
         <div className="page-section">
-          <h2>1. Escolha o Barbeiro</h2>
+          <h2>1. Escolha o Profissional</h2>
           <div className="chip-group">
             {barbers.map((barber) => (
               <button
@@ -336,7 +336,7 @@ const Appointment = () => {
                 <span className="value">{selectedService.name}</span>
               </div>
               <div className="summary-row">
-                <span className="label">Barbeiro</span>
+                <span className="label">Profissional</span>
                 <span className="value">{selectedBarber.name}</span>
               </div>
               <div className="summary-row">

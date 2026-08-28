@@ -167,7 +167,7 @@ export default function AdminAppointments() {
               <thead>
                 <tr>
                   <th>Cliente</th>
-                  <th>Barbeiro</th>
+                  <th>Profissional</th>
                   <th>Serviço</th>
                   <th>Data</th>
                   <th>Hora</th>

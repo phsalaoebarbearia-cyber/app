@@ -101,7 +101,7 @@ const AppointmentsList = () => {
                       {appointment.service?.name || appointment.serviceName || 'Serviço'}
                     </h4>
                     <p style={{ fontSize: 13, color: 'var(--gray)', marginTop: 6 }}>
-                      Barbeiro: {appointment.barber?.name || appointment.barberName || '-'}
+                      Profissional: {appointment.barber?.name || appointment.barberName || '-'}
                     </p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 10, fontSize: 13, color: 'var(--gray)' }}>
                       <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

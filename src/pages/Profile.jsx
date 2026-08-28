@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 
 const ROLE_LABELS = {
   client: 'Cliente',
-  barber: 'Barbeiro',
+  barber: 'Profissional',
   admin: 'Administrador',
 };
 

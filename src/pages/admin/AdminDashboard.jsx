@@ -73,7 +73,7 @@ export default function AdminDashboard() {
     .slice(0, 5);
 
   const stats = [
-    { icon: Users, value: barbers.length, label: 'Total Barbeiros', tone: 'accent' },
+    { icon: Users, value: barbers.length, label: 'Total Profissionais', tone: 'accent' },
     { icon: Scissors, value: services.length, label: 'Total Serviços', tone: 'gold' },
     { icon: Calendar, value: todayCount, label: 'Agendamentos Hoje', tone: 'success' },
     { icon: UserPlus, value: clients.length, label: 'Total Clientes', tone: 'warning' }
@@ -113,7 +113,7 @@ export default function AdminDashboard() {
               <thead>
                 <tr>
                   <th>Cliente</th>
-                  <th>Barbeiro</th>
+                  <th>Profissional</th>
                   <th>Serviço</th>
                   <th>Data</th>
                   <th>Status</th>

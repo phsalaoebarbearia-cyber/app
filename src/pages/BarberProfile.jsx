@@ -78,7 +78,7 @@ const BarberProfile = () => {
     <div>
       <div className="page-header">
         <div>
-          <h1>Perfil do Barbeiro</h1>
+          <h1>Perfil do Profissional</h1>
           <p className="subtitle">{barber ? barber.name : 'Carregando...'}</p>
         </div>
         {barber && (
@@ -101,7 +101,7 @@ const BarberProfile = () => {
         {!barber && (
           <div className="empty-state">
             <Scissors size={48} />
-            <h3>Barbeiro não encontrado</h3>
+            <h3>Profissional não encontrado</h3>
             <p>O barbeiro solicitado não existe ou foi removido.</p>
           </div>
         )}
@@ -122,7 +122,7 @@ const BarberProfile = () => {
                 </div>
               )}
               <h2 className="fs-lg fw-700 mt-md">{barber.name}</h2>
-              <p className="text-gold">{barber.specialty || 'Barbeiro'}</p>
+              <p className="text-gold">{barber.specialty || 'Profissional'}</p>
 
               <div className="card mt-lg" style={{ textAlign: 'center' }}>
                 <div className="grid-3">

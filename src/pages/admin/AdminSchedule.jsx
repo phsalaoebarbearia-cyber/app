@@ -248,7 +248,7 @@ export default function AdminSchedule() {
                 <span className="value">{slotDetails.time}</span>
               </div>
               <div className="summary-row">
-                <span className="label">Barbeiro</span>
+                <span className="label">Profissional</span>
                 <span className="value">{slotDetails.barberName}</span>
               </div>
               <div className="summary-row">

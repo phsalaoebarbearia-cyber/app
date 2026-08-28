@@ -28,7 +28,7 @@ const clientNav = [
 
 const adminNav = [
   { path: '/', label: 'Dashboard', icon: BarChart3 },
-  { path: '/barbeiros', label: 'Barbeiros', icon: Users },
+  { path: '/barbeiros', label: 'Profissionais', icon: Users },
   { path: '/servicos', label: 'Serviços', icon: Scissors },
   { path: '/agenda', label: 'Agenda', icon: CalendarDays },
   { path: '/agendamentos', label: 'Agendamentos', icon: ClipboardList },
@@ -47,7 +47,7 @@ export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navItems = user?.role === 'admin' ? adminNav : user?.role === 'barber' ? barberNav : clientNav;
-  const roleLabel = user?.role === 'admin' ? 'Administrador' : user?.role === 'barber' ? 'Barbeiro' : 'Cliente';
+  const roleLabel = user?.role === 'admin' ? 'Administrador' : user?.role === 'barber' ? 'Profissional' : 'Cliente';
 
   const handleNav = (path) => {
     navigate(path);

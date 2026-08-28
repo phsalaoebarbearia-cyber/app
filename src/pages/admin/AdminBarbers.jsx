@@ -211,12 +211,12 @@ export default function AdminBarbers() {
     <>
       <header className="page-header">
         <div>
-          <h1>Barbeiros</h1>
+          <h1>Profissionais</h1>
           <div className="subtitle">Gerencie a equipe da barbearia</div>
         </div>
         <button className="btn btn-accent btn-sm" onClick={openCreate}>
           <Plus size={18} />
-          Novo Barbeiro
+          Novo Profissional
         </button>
       </header>
 
@@ -238,7 +238,7 @@ export default function AdminBarbers() {
             <table>
               <thead>
                 <tr>
-                  <th>Barbeiro</th>
+                  <th>Profissional</th>
                   <th>Email</th>
                   <th>Especialidade</th>
                   <th>Status</th>
@@ -298,7 +298,7 @@ export default function AdminBarbers() {
       {modalOpen && (
         <div className="modal-overlay" onClick={() => setModalOpen(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2>{editing ? 'Editar Barbeiro' : 'Novo Barbeiro'}</h2>
+            <h2>{editing ? 'Editar Profissional' : 'Novo Profissional'}</h2>
             {error && <div className="alert alert-error">{error}</div>}
             <div className="form-group">
               <label>Nome</label>
@@ -445,7 +445,7 @@ export default function AdminBarbers() {
             </div>
             <div style={{ display: 'flex', gap: 12 }}>
               <button className="btn btn-accent btn-sm" onClick={handleSave} disabled={saving}>
-                {editing ? 'Salvar Alterações' : 'Criar Barbeiro'}
+                {editing ? 'Salvar Alterações' : 'Criar Profissional'}
               </button>
               <button className="btn btn-outline btn-sm" onClick={() => setModalOpen(false)}>
                 <X size={16} />

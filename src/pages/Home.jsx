@@ -116,7 +116,7 @@ const Home = () => {
         </div>
 
         <div className="page-section">
-          <h2>Nossos Barbeiros</h2>
+          <h2>Nossos Profissionais</h2>
           <div className="grid-2">
             {barbers.map((barber) => (
               <div
@@ -131,7 +131,7 @@ const Home = () => {
                 )}
                 <div className="info">
                   <h4>{barber.name}</h4>
-                  <p className="specialty">{barber.specialty || 'Barbeiro'}</p>
+                  <p className="specialty">{barber.specialty || 'Profissional'}</p>
                   <div className="meta">
                     <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                       <Star size={12} className="text-gold" /> {barber.rating || '5.0'}
