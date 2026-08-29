@@ -316,19 +316,32 @@ const Landing = () => {
                   <span>Localização acessível</span>
                 </div>
               </div>
-              <a
-                href="/app/ph-barbearia.apk"
-                download="ph-barbearia.apk"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  marginTop: 24, padding: '12px 24px', borderRadius: 8,
-                  backgroundColor: '#d4af37', color: '#111', fontWeight: 600,
-                  fontSize: 15, textDecoration: 'none', cursor: 'pointer',
-                }}
-              >
-                <Download size={18} />
-                Baixar App (APK)
-              </a>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
+                <a
+                  href="/app/ph-barbearia.apk"
+                  download="ph-barbearia.apk"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: '12px 24px', borderRadius: 8,
+                    backgroundColor: '#d4af37', color: '#111', fontWeight: 600,
+                    fontSize: 15, textDecoration: 'none', cursor: 'pointer',
+                  }}
+                >
+                  <Download size={18} />
+                  Baixar App (Android)
+                </a>
+                <span
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: '12px 24px', borderRadius: 8,
+                    backgroundColor: '#222', color: '#999', fontWeight: 600,
+                    fontSize: 15, cursor: 'not-allowed', opacity: 0.7,
+                  }}
+                >
+                  <Download size={18} />
+                  Versão iPhone (em breve)
+                </span>
+              </div>
             </div>
             <div className="landing-about-images" style={styles.aboutImages}>
               <div className="landing-about-m1" style={styles.aboutMirror1}>
